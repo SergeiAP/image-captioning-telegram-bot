@@ -1,0 +1,17 @@
+!!!Important!!!
+-for windows paths: //c/Users/path/to\ your/folder
+
+Stop and delete all containers, images, volumes:
+-docker stop $(docker ps -a -q)
+-docker rm $(docker ps -a -q)
+-docker rmi $(docker images -q)
+-docker volume rm volume_name
+
+Launch docker-compose and all images:
+-docker-compose up
+
+Information:
+-launched containers: docker ps -a
+-images: docker images
+-volumes: docker volume ls
+-inspect volume: docker volume inspect volume_name

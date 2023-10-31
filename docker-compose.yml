@@ -1,0 +1,37 @@
+version: '3.2'
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      device: //c/Users/Сергей/Desktop/image_captioning_data
+      o: bind
+
+services:
+  selenium:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444
+    volumes:
+      - /dev/shm:/dev/shm
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  tgbot:
+    container_name: bot
+    build:
+      context: .
+    volumes:
+      - data:/ImageCaptioning/data
+
+    command: python app.py
+    restart: always
+
+    env_file:
+      - "./data/.env"
